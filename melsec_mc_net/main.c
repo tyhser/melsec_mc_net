@@ -136,10 +136,9 @@ int main(int argc, char** argv)
 	libso_fun(szdllpath);
 #endif
 
-	char* plc_ip = "192.168.0.235";
+	char* plc_ip = "192.168.1.21";
 	int plc_port = 5002;
-	if (argc > 1)
-	{
+	if (argc == 3) {
 		plc_ip = argv[1];
 		plc_port = atoi(argv[2]);
 	}
@@ -260,7 +259,7 @@ int main(int argc, char** argv)
 			GET_RESULT(ret);
 
 			//////////////////////////////////////////////////////////////////////////
-			const char sz_write[] = "wqliceman@gmail.com";
+			const char sz_write[] = "taijiajun@anosi.cn";
 			int length = sizeof(sz_write) / sizeof(sz_write[0]);
 			ret = mc_write_string(fd, "D100", length, sz_write);
 			printf("Write\t D100 \tstring:\t %s, \tret: %d\n", sz_write, ret);
@@ -272,7 +271,7 @@ int main(int argc, char** argv)
 			free(str_val);
 			GET_RESULT(ret);
 
-			//Sleep(TEST_SLEEP_TIME);
+			usleep(TEST_SLEEP_TIME*3000);
 		}
 
 		printf("All Failed count: %d\n", faild_count);
