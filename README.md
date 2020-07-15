@@ -237,3 +237,161 @@ void main(int argc, char** argv)
 
 ```
 
+## JSON configure format
+Input from Redis:
+
+```
+{
+"time": "1500000000",
+"interConfg": [
+    {
+        "deviceName": "Q00U_1",
+        "interface":"com",
+        "driveConfig": {
+            "ip": "192.168.1.21",
+            "port": "5002",
+            "network_addr": "0",
+            "station_addr": "0"
+        },
+        "points": [
+            {
+                "path": "fp01",
+                "address": "M100",
+                "offset": 0,
+                "type": "uint32",
+                "len": 16,
+                "cycle": 1000
+            },
+            {
+                "path": "fp02",
+                "address": "D100",
+                "offset": 0,
+                "type": "float32",
+                "len": 32,
+                "cycle": 5000
+            },
+            {
+                "path": "fp03",
+                "address": "W1A0",
+                "offset": 0,
+                "type": "bool",
+                "len": 1,
+                "cycle": 5000
+            },
+        ]
+    },
+    {
+        "deviceName": "Q00U_2",
+        "interface":"com",
+        "driveConfig": {
+            "ip": "192.168.1.22",
+            "port": "5002",
+            "network_addr": "0",
+            "station_addr": "1"
+        },
+        "points": [
+            {
+                "path": "fp01",
+                "address": "M100",
+                "offset": 0,
+                "type": "uint32",
+                "len": 16,
+                "cycle": 1000
+            },
+            {
+                "path": "fp02",
+                "address": "D100",
+                "offset": 0,
+                "type": "float32",
+                "len": 32,
+                "cycle": 5000
+            },
+            {
+                "path": "fp03",
+                "address": "W1A0",
+                "offset": 0,
+                "type": "bool",
+                "len": 1,
+                "cycle": 5000
+            },
+        ]
+    },
+]
+}
+
+```
+
+## JSON Publish format
+Published by redis
+
+```
+{
+"SN": "AWILW190307029",
+"UT": "1500000000",
+"POINT": [
+    {
+        "deviceName": "Q00U_1",
+        "ip": "192.168.1.21",
+        "network_addr": "0",
+        "station_addr": "0",
+        "data": [
+            {
+                "path": "fp01",
+                "address": "M100",
+                "value": "700"
+            },
+            {
+                "path": "fp02",
+                "address": "D100",
+                "value": "5000"
+            },
+            {
+                "path": "fp03",
+                "address": "W1A0",
+                "value": "5000"
+            },
+        ]
+    },
+    {
+        "deviceName": "Q00U_2",
+        "interface":"com",
+        "ip": "192.168.1.22",
+        "network_addr": "0",
+        "station_addr": "1",
+        "data": [
+            {
+                "path": "fp01",
+                "address": "M100",
+                "value": "1000"
+            },
+            {
+                "path": "fp02",
+                "address": "D100",
+                "value": "5000"
+            },
+            {
+                "path": "fp03",
+                "address": "W1A0",
+                "value": "5000"
+            },
+        ]
+    },
+]
+}
+```
+
+## Store data at Redis
+store data in Redis by following format:
+
+```
+HMSET s2n/melsec/Q00U_1/M100 pname "fp01" value "233" type "uint32" time 1586245120
+HMSET s2n/melsec/Q00U_2/D100 pname "fp02" value "233" type "uint32" time 1586245120
+HMSET s2n/melsec/Q00U_3/W1A0 pname "fp03" value "233" type "uint32" time 1586245120
+
+```
+key description:
+s2n: south to north
+melsec: driver name
+Q00U_1: device name
+M100: point name
+
