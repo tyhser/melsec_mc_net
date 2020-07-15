@@ -1,4 +1,3 @@
-
 #.PHONY:all clean 
 
 ifeq ($(DEBUG),true)
@@ -10,8 +9,6 @@ CC = gcc
 VERSION = release
 endif
 
-#CC = gcc
-
 # $(wildcard *.c)表示扫描当前目录下所有.c文件
 #SRCS = nginx.c ngx_conf.c
 SRCS = $(wildcard *.c)
@@ -19,15 +16,13 @@ SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
 
 #把字符串中的.c替换为.d
-#DEPS = nginx.d ngx_conf.d
 DEPS = $(SRCS:.c=.d)
 
 #可以指定BIN文件的位置,addprefix是增加前缀函数
-#BIN = /mnt/hgfs/linux/nginx
 BIN := $(addprefix $(BUILD_ROOT)/,$(BIN))
 
 #定义存放ojb文件的目录，目录统一到一个位置才方便后续链接，不然整到各个子目录去，不好链接
-#注意下边这个字符串，末尾不要有空格等否则会语法错误 
+#注意下边这个字符串，末尾不要有空格等否则会语法错误
 LINK_OBJ_DIR = $(BUILD_ROOT)/app/link_obj
 DEP_DIR = $(BUILD_ROOT)/app/dep
 
@@ -47,7 +42,7 @@ LINK_OBJ += $(OBJS)
 all:$(DEPS) $(OBJS) $(BIN)
 
 ifneq ("$(wildcard $(DEPS))","")   #如果不为空,$(wildcard)是函数【获取匹配模式文件名】，这里 用于比较是否为""
-include $(DEPS)  
+include $(DEPS)
 endif
 
 #----------------------------------------------------------------1begin------------------
@@ -90,8 +85,3 @@ $(DEP_DIR)/%.d:%.c
 clean:			
 	rm -f $(BIN) $(OBJS) $(DEPS) *.gch
 #----------------------------------------------------------------nend------------------
-
-
-
-
-
