@@ -37,7 +37,7 @@ bool mc_disconnect(int fd)
 	return true;
 }
 
-//////////////////////////////////////////////////////////////////////////
+
 bool read_bool_value(int fd, const char* address, int length, byte_array_info* out_bytes)
 {
 	bool ret = false;

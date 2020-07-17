@@ -1,4 +1,4 @@
-#.PHONY:all clean 
+#.PHONY:all clean
 
 ifeq ($(DEBUG),true)
 #-g是生成调试信息。GNU调试器可以利用该信息

@@ -1,5 +1,7 @@
-
 include config.mk
+
+COPY_TO_ARM=./copy.sh
+
 all:
 #-C是指定目录
 #make -C signal   
@@ -14,8 +16,12 @@ all:
 	done
 
 
+.PHONY: clean copy
 clean:
 #-rf：删除文件夹，强制删除
 	rm -rf app/link_obj app/dep nginx
 	rm -rf signal/*.gch app/*.gch
 
+copy:
+	bash $(COPY_TO_ARM)
+	@echo "Done."
