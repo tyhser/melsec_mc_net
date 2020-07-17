@@ -1,3 +1,21 @@
+#Sources
+DATA_COMM_SRC = data_comm
+DATA_COMM_FILES = $(DATA_COMM_SRC)/cJSON.c \
+				  $(DATA_COMM_SRC)/cjson_cli.c \
+				  $(DATA_COMM_SRC)/common.c \
+				  $(DATA_COMM_SRC)/debug_dump.c \
+				  $(DATA_COMM_SRC)/driver_redis.c \
+				  $(DATA_COMM_SRC)/eeprom_flash_map.c \
+				  $(DATA_COMM_SRC)/main.c \
+				  $(DATA_COMM_SRC)/system.c
+
+FEATURE ?= $(PROJ_PATH)/$(DATA_COMM_SRC)/feature.mk
+include $(FEATURE)
+
+ifeq ($(FEATURE_XX), y)
+	CFLAGS += -DFEATURE_XX
+endif
+
 ifeq ($(FEATURE_DELETE_UNIQUE_NAME_DEVICE), y)
 CFLAGS	+= -DFEATURE_DELETE_UNIQUE_NAME_DEVICE
 endif
@@ -17,4 +35,9 @@ endif
 ifeq ($(FEATURE_USE_UNIX_SOCKET_CONNECT_REDIS), y)
 CFLAGS	+= -DFEATURE_USE_UNIX_SOCKET_CONNECT_REDIS
 endif
+
+CFILES += $(DATA_COMM_FILES)
+
+# include path
+CFLAGS += -I$(SOURCE_DIR)/data_comm
 
